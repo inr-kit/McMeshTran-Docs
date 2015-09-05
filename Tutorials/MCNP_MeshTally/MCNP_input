@@ -1,0 +1,68 @@
+c     
+c     Created on: Friday, May 11, 2012 at 09:54
+    1     1  -1.0  (1  -2  3  -4  5  -6  )7 imp:n=1  imp:p=1  $outer
+    2     2  -7.8  (-7  5  -6  )(-8  :9  :-10  :11  )  imp:n=1  imp:p=1   $middle
+    3     0         8  -9  10  -11  5  -6   imp:n=1  imp:p=1   $inner
+    4     0        -1  :2  :-3  :4  :-5  :6       imp:n=0  imp:p=0  $space
+
+    1        px       -230
+    2        px        230
+    3        py       -230
+    4        py        230
+    5        pz       -230
+    6        pz        230
+    7        cz        150
+    8        px        -100
+    9        px         100
+   10        py        -100
+   11        py         100
+
+mode n p
+sdef  x=d1 y=d2 z=d3 erg=14.07  par=1 
+si1    -100 100
+sp1    0  1 
+si2    -100 100
+sp2    0  1 
+si3    -230 230
+sp3    0  1 
+c material
+m1      1001.60c 2  8016.60c 1
+m2      26056.60c 1
+nps     1000000
+print
+c  Mesh tally section -----------
+c  a. XYZ+0E+DF+WFM+NP
+FMESH4:n GEOM=xyz  ORIGIN= -230 -230 -230
+         IMESH 230
+         IINTS   50
+         JMESH  230
+         JINTS  50
+         KMESH  230 
+         KINTS  50
+FM4  -1 0 -4 1
+c b.  XYZ+0E+IJ+WFM+NP
+FMESH14:p GEOM=xyz  ORIGIN= -230 -230 -230
+         IMESH 230
+         IINTS  50
+         JMESH  230
+         JINTS  50
+         KMESH  230 
+         KINTS  50
+         OUT=ij
+FM14  -1 0 -5 -6
+FMESH24:n GEOM=rzt ORIGIN= 0 0 -230 AXS= 0 0 1 VEC=1 0 0
+         IMESH 80  150
+         IINTS  1  45
+         JMESH  460
+         JINTS  50
+         KMESH  0.25  1 
+         KINTS  50  1
+FM24  -1 0 -4 1
+FMESH34:p GEOM=rzt ORIGIN= 0 0 -230 AXS= 0 0 1 VEC=1 0 0
+         IMESH 80  150
+         IINTS  1  45
+         JMESH  460
+         JINTS  50
+         KMESH  0.25  1 
+         KINTS  50  1
+FM34  -1 0 -5 -6
